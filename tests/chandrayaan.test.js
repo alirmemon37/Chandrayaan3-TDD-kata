@@ -33,6 +33,10 @@ describe("Chandrayaan 3 should", () => {
     ${"E"}    | ${"U"} | ${"l"} | ${"N"}          | ${"U"}
     ${"S"}    | ${"U"} | ${"l"} | ${"E"}          | ${"U"}
     ${"W"}    | ${"U"} | ${"l"} | ${"S"}          | ${"U"}
+    ${"N"}    | ${"D"} | ${"l"} | ${"E"}          | ${"D"}
+    ${"E"}    | ${"D"} | ${"l"} | ${"S"}          | ${"D"}
+    ${"S"}    | ${"D"} | ${"l"} | ${"W"}          | ${"D"}
+    ${"W"}    | ${"D"} | ${"l"} | ${"N"}          | ${"D"}
   `(
     "when direction is $direction and facing $facing then on turning $turn, direction is $expectDirection and facing $expectFacing",
     ({ direction, facing, turn, expectDirection, expectFacing }) => {
