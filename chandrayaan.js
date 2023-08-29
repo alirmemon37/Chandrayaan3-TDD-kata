@@ -1,7 +1,9 @@
 const moveForward = (position, direction) => {
-  if (direction === "N") return [0, 1, 0];
-  if (direction === "E") return [1, 0, 0];
-  if (direction === "U") return [0, 0, 1];
+  const [x, y, z] = position;
+
+  if (direction === "N") return [x, y + 1, z];
+  if (direction === "E") return [x + 1, y, z];
+  if (direction === "U") return [x, y, z + 1];
 };
 
 module.exports = moveForward;

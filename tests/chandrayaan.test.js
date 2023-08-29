@@ -1,24 +1,18 @@
 const moveForward = require("../chandrayaan");
 
 describe("Chandrayaan 3 should", () => {
-  it("when facing N moving forward by 1 should increase the y coordinate by 1", () => {
-    const initialPosition = [0, 0, 0];
-    const initialDirection = "N";
+  it.each`
+    direction | movement | expected
+    ${"N"}    | ${"f"}   | ${[0, 1, 0]}
+    ${"E"}    | ${"f"}   | ${[1, 0, 0]}
+    ${"U"}    | ${"f"}   | ${[0, 0, 1]}
+  `(
+    "when facing $direction moving $movement by 1 should change the position correctly",
+    ({ direction, movement, expected }) => {
+      const initialPosition = [0, 0, 0];
+      const initialDirection = direction;
 
-    expect(moveForward(initialPosition, initialDirection)).toEqual([0, 1, 0]);
-  });
-
-  it("when facing E moving forward by 1 should increase the x coordinate by 1", () => {
-    const initialPosition = [0, 0, 0];
-    const initialDirection = "E";
-
-    expect(moveForward(initialPosition, initialDirection)).toEqual([1, 0, 0]);
-  });
-
-  it("when facing Up moving forward by 1 should increase the z coordinate by 1", () => {
-    const initialPosition = [0, 0, 0];
-    const initialDirection = "U";
-
-    expect(moveForward(initialPosition, initialDirection)).toEqual([0, 0, 1]);
-  });
+      expect(moveForward(initialPosition, initialDirection)).toEqual(expected);
+    }
+  );
 });
