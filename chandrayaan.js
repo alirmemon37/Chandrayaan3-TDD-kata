@@ -1,4 +1,4 @@
-const moveDirectionMappings = require("./constants");
+const { moveDirectionMappings, turnMappings } = require("./constants");
 
 const move = (position, direction, movement) => {
   const [x, y, z] = position;
@@ -13,30 +13,10 @@ const move = (position, direction, movement) => {
   return newPosition;
 };
 
-const turnLeft = (direction, facing) => {
-  const newDirection = {
-    N: { U: "W", D: "E" },
-    E: { U: "N", D: "S" },
-    S: { U: "E", D: "W" },
-    W: { U: "S", D: "N" },
-  }[direction][facing];
+const turn = (direction, facing, turnDirection) => {
+  const newDirection = turnMappings[direction][facing][turnDirection];
 
-  const newFacing = facing;
-
-  return { newDirection, newFacing };
+  return { newDirection, newFacing: facing };
 };
 
-const turnRight = (direction, facing) => {
-  const newDirection = {
-    N: { U: "E", D: "W" },
-    E: { U: "S", D: "N" },
-    S: { U: "W", D: "E" },
-    W: { U: "N", D: "S" },
-  }[direction][facing];
-
-  const newFacing = facing;
-
-  return { newDirection, newFacing };
-};
-
-module.exports = { move, turnLeft, turnRight };
+module.exports = { move, turn };
