@@ -1,0 +1,9 @@
+// to get jest intellesense in vscode
+
+{
+  "typeAcquisition": {
+    "include": [
+      "jest"
+    ]
+  }
+}
