@@ -1,4 +1,4 @@
-const moveForward = require("../chandrayaan");
+const { moveForward, moveBackward } = require("../chandrayaan");
 
 describe("Chandrayaan 3 should", () => {
   it.each`
@@ -22,9 +22,13 @@ describe("Chandrayaan 3 should", () => {
       const initialDirection = direction;
 
       if (movement === "f") {
-        expect(moveForward(initialPosition, initialDirection, movement)).toEqual(expected);
+        expect(
+          moveForward(initialPosition, initialDirection, movement)
+        ).toEqual(expected);
       } else {
-        expect(moveBackward(initialPosition, initialDirection, movement)).toEqual(expected);
+        expect(
+          moveBackward(initialPosition, initialDirection, movement)
+        ).toEqual(expected);
       }
     }
   );
