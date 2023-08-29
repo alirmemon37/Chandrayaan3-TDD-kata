@@ -27,19 +27,28 @@ describe("Chandrayaan 3 should", () => {
     }
   );
 
-  it("when direction is N and facing U then on turning left direction is W and facing U", () => {
-    const initialDirection = "N";
-    const initialFacing = "U";
+  it.each`
+    direction | facing | turn   | expectDirection | expectFacing
+    ${"N"}    | ${"U"} | ${"l"} | ${"W"}          | ${"U"}
+    ${"E"}    | ${"U"} | ${"l"} | ${"N"}          | ${"U"}
+    ${"S"}    | ${"U"} | ${"l"} | ${"E"}          | ${"U"}
+    ${"W"}    | ${"U"} | ${"l"} | ${"S"}          | ${"U"}
+  `(
+    "when direction is $direction and facing $facing then on turning $turn, direction is $expectDirection and facing $expectFacing",
+    ({ direction, facing, turn, expectDirection, expectFacing }) => {
+      const initialDirection = direction;
+      const initialFacing = facing;
 
-    // tracking two directions on of horizontal plane and other for galactic plane
-    const { newDirection, newFacing } = turnLeft(
-      initialDirection,
-      initialFacing
-    );
+      // tracking two directions on of horizontal plane and other for galactic plane
+      const { newDirection, newFacing } = turnLeft(
+        initialDirection,
+        initialFacing
+      );
 
-    expect({ newDirection, newFacing }).toEqual({
-      newDirection: "W",
-      newFacing: "U",
-    });
-  });
+      expect({ newDirection, newFacing }).toEqual({
+        newDirection: expectDirection,
+        newFacing: expectFacing,
+      });
+    }
+  );
 });
