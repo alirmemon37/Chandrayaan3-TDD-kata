@@ -1,4 +1,10 @@
-const { move, turnLeft, turnRight, turn } = require("../chandrayaan");
+const { execute } = require("../chandrayaan");
+
+const chandrayaan = (position, direction, facing) => ({
+  position: position,
+  direction,
+  facing,
+});
 
 describe("Chandrayaan 3 should", () => {
   it.each`
@@ -18,12 +24,9 @@ describe("Chandrayaan 3 should", () => {
   `(
     "when facing $direction moving $movement by 1 should change the position correctly",
     ({ direction, movement, expected }) => {
-      const initialPosition = [0, 0, 0];
-      const initialDirection = direction;
-
-      const newPosition = move(initialPosition, initialDirection, movement);
-
-      expect(newPosition).toEqual(expected);
+      expect(execute(movement, chandrayaan([0, 0, 0], direction))).toEqual(
+        chandrayaan(expected, direction)
+      );
     }
   );
 
@@ -47,27 +50,11 @@ describe("Chandrayaan 3 should", () => {
     ${"W"}    | ${"D"} | ${"r"} | ${"S"}          | ${"D"}
   `(
     "when direction is $direction and facing $facing then on turning $turn, direction is $expectDirection and facing $expectFacing",
-    ({
-      direction,
-      facing,
-      turn: turnDirection,
-      expectDirection,
-      expectFacing,
-    }) => {
-      const initialDirection = direction;
-      const initialFacing = facing;
-
+    ({ direction, facing, turn, expectDirection, expectFacing }) => {
       // tracking two directions on of horizontal plane and other for galactic plane
-      const { newDirection, newFacing } = turn(
-        initialDirection,
-        initialFacing,
-        turnDirection
+      expect(execute(turn, chandrayaan([0, 0, 0], direction, facing))).toEqual(
+        chandrayaan([0, 0, 0], expectDirection, expectFacing)
       );
-
-      expect({ newDirection, newFacing }).toEqual({
-        newDirection: expectDirection,
-        newFacing: expectFacing,
-      });
     }
   );
 });
