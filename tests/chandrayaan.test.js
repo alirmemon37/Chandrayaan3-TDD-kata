@@ -37,6 +37,14 @@ describe("Chandrayaan 3 should", () => {
     ${"E"}    | ${"D"} | ${"l"} | ${"S"}          | ${"D"}
     ${"S"}    | ${"D"} | ${"l"} | ${"W"}          | ${"D"}
     ${"W"}    | ${"D"} | ${"l"} | ${"N"}          | ${"D"}
+    ${"N"}    | ${"U"} | ${"r"} | ${"E"}          | ${"U"}
+    ${"E"}    | ${"U"} | ${"r"} | ${"S"}          | ${"U"}
+    ${"S"}    | ${"U"} | ${"r"} | ${"W"}          | ${"U"}
+    ${"W"}    | ${"U"} | ${"r"} | ${"N"}          | ${"U"}
+    ${"N"}    | ${"D"} | ${"r"} | ${"W"}          | ${"D"}
+    ${"E"}    | ${"D"} | ${"r"} | ${"N"}          | ${"D"}
+    ${"S"}    | ${"D"} | ${"r"} | ${"E"}          | ${"D"}
+    ${"W"}    | ${"D"} | ${"r"} | ${"S"}          | ${"D"}
   `(
     "when direction is $direction and facing $facing then on turning $turn, direction is $expectDirection and facing $expectFacing",
     ({ direction, facing, turn, expectDirection, expectFacing }) => {
@@ -44,15 +52,27 @@ describe("Chandrayaan 3 should", () => {
       const initialFacing = facing;
 
       // tracking two directions on of horizontal plane and other for galactic plane
-      const { newDirection, newFacing } = turnLeft(
-        initialDirection,
-        initialFacing
-      );
+      if (turn === "l") {
+        const { newDirection, newFacing } = turnLeft(
+          initialDirection,
+          initialFacing
+        );
 
-      expect({ newDirection, newFacing }).toEqual({
-        newDirection: expectDirection,
-        newFacing: expectFacing,
-      });
+        expect({ newDirection, newFacing }).toEqual({
+          newDirection: expectDirection,
+          newFacing: expectFacing,
+        });
+      } else {
+        const { newDirection, newFacing } = turnRight(
+          initialDirection,
+          initialFacing
+        );
+        
+        expect({ newDirection, newFacing }).toEqual({
+          newDirection: expectDirection,
+          newFacing: expectFacing,
+        });
+      }
     }
   );
 });
