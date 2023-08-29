@@ -15,7 +15,7 @@ describe("Chandrayaan 3 should", () => {
       const initialPosition = [0, 0, 0];
       const initialDirection = direction;
 
-      expect(moveForward(initialPosition, initialDirection)).toEqual(expected);
+      expect(moveForward(initialPosition, initialDirection, movement)).toEqual(expected);
     }
   );
 });

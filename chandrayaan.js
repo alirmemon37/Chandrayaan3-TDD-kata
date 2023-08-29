@@ -1,12 +1,16 @@
-const moveForward = (position, direction) => {
+const moveForwardMappings = require("./constants");
+
+const moveForward = (position, direction, movement) => {
   const [x, y, z] = position;
 
-  if (direction === "N") return [x, y + 1, z];
-  if (direction === "E") return [x + 1, y, z];
-  if (direction === "U") return [x, y, z + 1];
-  if (direction === "S") return [x, y - 1, z];
-  if (direction === "W") return [x - 1, y, z];
-  if (direction === "D") return [x, y, z - 1];
+  const coordinateChange = moveForwardMappings[direction][movement];
+  const newPosition = [
+    x + coordinateChange[0],
+    y + coordinateChange[1],
+    z + coordinateChange[2],
+  ];
+
+  return newPosition;
 };
 
 module.exports = moveForward;
