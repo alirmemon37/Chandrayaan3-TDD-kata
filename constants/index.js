@@ -8,10 +8,24 @@ const moveDirectionMappings = {
 };
 
 const turnMappings = {
-  N: { U: { l: "W", r: "E" }, D: { l: "E", r: "W" } },
+  N: {
+    U: { l: "W", r: "E" },
+    D: { l: "E", r: "W" },
+    W: { l: "D", r: "U" },
+    E: { l: "U", r: "D" },
+  },
   E: { U: { l: "N", r: "S" }, D: { l: "S", r: "N" } },
   S: { U: { l: "E", r: "W" }, D: { l: "W", r: "E" } },
   W: { U: { l: "S", r: "N" }, D: { l: "N", r: "S" } },
 };
 
-module.exports = { moveDirectionMappings, turnMappings };
+const oppositeMapping = {
+  U: "D",
+  D: "U",
+  N: "S",
+  S: "N",
+  E: "W",
+  W: "E",
+};
+
+module.exports = { moveDirectionMappings, turnMappings, oppositeMapping };

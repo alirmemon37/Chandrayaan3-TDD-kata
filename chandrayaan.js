@@ -1,4 +1,8 @@
-const { moveDirectionMappings, turnMappings } = require("./constants");
+const {
+  moveDirectionMappings,
+  turnMappings,
+  oppositeMapping,
+} = require("./constants");
 
 const getNextPosition = (position, direction, movement) => {
   const [x, y, z] = position;
@@ -38,6 +42,20 @@ const execute = (command, state) => {
 
   if (command === "l" || command === "r") {
     return turn(state, command);
+  }
+
+  if (command === "u") {
+    const newDirection = state.facing;
+    const newFacing = oppositeMapping[state.direction];
+
+    return { ...state, direction: newDirection, facing: newFacing };
+  }
+
+  if (command === "d") {
+    const newDirection = oppositeMapping[state.facing];
+    const newFacing = state.direction;
+
+    return { ...state, direction: newDirection, facing: newFacing };
   }
 };
 
