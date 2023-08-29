@@ -14,16 +14,12 @@ const move = (position, direction, movement) => {
 };
 
 const turnLeft = (direction, facing) => {
-  let newDirection;
-  if (direction === "N") {
-    newDirection = "W";
-  } else if (direction === "W") {
-    newDirection = "S";
-  } else if (direction === "S") {
-    newDirection = "E";
-  } else if (direction === "E") {
-    newDirection = "N";
-  }
+  const newDirection = {
+    N: { U: "W", D: "E" },
+    E: { U: "N", D: "S" },
+    S: { U: "E", D: "W" },
+    W: { U: "S", D: "N" },
+  }[direction][facing];
 
   const newFacing = facing;
 
