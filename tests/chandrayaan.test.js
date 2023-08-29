@@ -1,4 +1,4 @@
-const { move } = require("../chandrayaan");
+const { move, turnLeft } = require("../chandrayaan");
 
 describe("Chandrayaan 3 should", () => {
   it.each`

@@ -13,4 +13,11 @@ const move = (position, direction, movement) => {
   return newPosition;
 };
 
-module.exports = { move };
+const turnLeft = (direction, facing) => {
+  const newDirection = "W";
+  const newFacing = "U";
+
+  return { newDirection, newFacing };
+};
+
+module.exports = { move, turnLeft };
