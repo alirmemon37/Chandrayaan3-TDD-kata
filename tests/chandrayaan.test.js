@@ -57,4 +57,31 @@ describe("Chandrayaan 3 should", () => {
       );
     }
   );
+
+  it.each`
+    direction | facing | command | expectDirection | expectFacing
+    ${"N"}    | ${"U"} | ${"u"}  | ${"U"}          | ${"S"}
+    ${"N"}    | ${"U"} | ${"d"}  | ${"D"}          | ${"N"}
+    ${"N"}    | ${"U"} | ${"l"}  | ${"W"}          | ${"U"}
+    ${"N"}    | ${"U"} | ${"r"}  | ${"E"}          | ${"U"}
+    ${"N"}    | ${"D"} | ${"u"}  | ${"D"}          | ${"S"}
+    ${"N"}    | ${"D"} | ${"d"}  | ${"U"}          | ${"N"}
+    ${"N"}    | ${"D"} | ${"l"}  | ${"E"}          | ${"D"}
+    ${"N"}    | ${"D"} | ${"r"}  | ${"W"}          | ${"D"}
+    ${"N"}    | ${"W"} | ${"u"}  | ${"W"}          | ${"S"}
+    ${"N"}    | ${"W"} | ${"d"}  | ${"E"}          | ${"N"}
+    ${"N"}    | ${"W"} | ${"l"}  | ${"D"}          | ${"W"}
+    ${"N"}    | ${"W"} | ${"r"}  | ${"U"}          | ${"W"}
+    ${"N"}    | ${"E"} | ${"u"}  | ${"E"}          | ${"S"}
+    ${"N"}    | ${"E"} | ${"d"}  | ${"W"}          | ${"N"}
+    ${"N"}    | ${"E"} | ${"l"}  | ${"U"}          | ${"E"}
+    ${"N"}    | ${"E"} | ${"r"}  | ${"D"}          | ${"E"}
+  `(
+    "when direction is $direction and facing $facing then on $command, direction is $expectDirection and facing $expectFacing",
+    ({ direction, facing, command, expectDirection, expectFacing }) => {
+      expect(
+        execute(command, chandrayaan([0, 0, 0], direction, facing))
+      ).toEqual(chandrayaan([0, 0, 0], expectDirection, expectFacing));
+    }
+  );
 });
