@@ -26,4 +26,17 @@ const turnLeft = (direction, facing) => {
   return { newDirection, newFacing };
 };
 
-module.exports = { move, turnLeft };
+const turnRight = (direction, facing) => {
+  const newDirection = {
+    N: { U: "E", D: "W" },
+    E: { U: "S", D: "N" },
+    S: { U: "W", D: "E" },
+    W: { U: "N", D: "S" },
+  }[direction][facing];
+
+  const newFacing = facing;
+
+  return { newDirection, newFacing };
+};
+
+module.exports = { move, turnLeft, turnRight };

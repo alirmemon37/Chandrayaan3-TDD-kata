@@ -1,4 +1,4 @@
-const { move, turnLeft } = require("../chandrayaan");
+const { move, turnLeft, turnRight } = require("../chandrayaan");
 
 describe("Chandrayaan 3 should", () => {
   it.each`
@@ -67,7 +67,7 @@ describe("Chandrayaan 3 should", () => {
           initialDirection,
           initialFacing
         );
-        
+
         expect({ newDirection, newFacing }).toEqual({
           newDirection: expectDirection,
           newFacing: expectFacing,
