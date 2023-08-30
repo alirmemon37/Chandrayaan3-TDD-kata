@@ -24,7 +24,7 @@ describe("Chandrayaan 3 should", () => {
   `(
     "when facing $direction moving $movement by 1 should change the position correctly",
     ({ direction, movement, expected }) => {
-      expect(execute(movement, chandrayaan([0, 0, 0], direction))).toEqual(
+      expect(execute([...movement], chandrayaan([0, 0, 0], direction))).toEqual(
         chandrayaan(expected, direction)
       );
     }
@@ -52,12 +52,13 @@ describe("Chandrayaan 3 should", () => {
     "when direction is $direction and facing $facing then on turning $turn, direction is $expectDirection and facing $expectFacing",
     ({ direction, facing, turn, expectDirection, expectFacing }) => {
       // tracking two directions on of horizontal plane and other for galactic plane
-      expect(execute(turn, chandrayaan([0, 0, 0], direction, facing))).toEqual(
-        chandrayaan([0, 0, 0], expectDirection, expectFacing)
-      );
+      expect(
+        execute([...turn], chandrayaan([0, 0, 0], direction, facing))
+      ).toEqual(chandrayaan([0, 0, 0], expectDirection, expectFacing));
     }
   );
 
+  // other configurations are not shown but accounted in turnMappings
   it.each`
     direction | facing | command | expectDirection | expectFacing
     ${"N"}    | ${"U"} | ${"u"}  | ${"U"}          | ${"S"}
@@ -80,23 +81,23 @@ describe("Chandrayaan 3 should", () => {
     "when direction is $direction and facing $facing then on $command, direction is $expectDirection and facing $expectFacing",
     ({ direction, facing, command, expectDirection, expectFacing }) => {
       expect(
-        execute(command, chandrayaan([0, 0, 0], direction, facing))
+        execute([...command], chandrayaan([0, 0, 0], direction, facing))
       ).toEqual(chandrayaan([0, 0, 0], expectDirection, expectFacing));
     }
   );
 
   it("when executing multiple commands", () => {
     const facing = "U";
-    expect(execute("fff", chandrayaan([0, 0, 0], "N", facing))).toEqual(
-      chandrayaan([0, 3, 0], "N", facing)
-    );
+    expect(
+      execute(["f", "f", "f"], chandrayaan([0, 0, 0], "N", facing))
+    ).toEqual(chandrayaan([0, 3, 0], "N", facing));
   });
 
   it("when executing multiple commands", () => {
     const facing = "U";
-    expect(execute("url", chandrayaan([0, 0, 0], "N", facing))).toEqual(
-      chandrayaan([0, 0, 0], "U", "S")
-    );
+    expect(
+      execute(["u", "r", "l"], chandrayaan([0, 0, 0], "N", facing))
+    ).toEqual(chandrayaan([0, 0, 0], "U", "S"));
   });
 
   /*
@@ -106,7 +107,7 @@ describe("Chandrayaan 3 should", () => {
   */
   it("when executing multiple commands", () => {
     const { position, direction } = execute(
-      "frubl",
+      ["f", "r", "u", "b", "l"],
       chandrayaan([0, 0, 0], "N", "U")
     );
 
