@@ -32,10 +32,14 @@ const turn = (chandrayaan, turnDirection) => {
   const newDirection =
     turnMappings[chandrayaan.direction][chandrayaan.facing][turnDirection];
 
-  return { ...chandrayaan, direction: newDirection };
+  return {
+    ...chandrayaan,
+    direction: newDirection,
+    facing: chandrayaan.facing,
+  };
 };
 
-const execute = (command, state) => {
+const apply = (command, state) => {
   if (command === "f" || command === "b") {
     return move(state, command);
   }
@@ -44,6 +48,8 @@ const execute = (command, state) => {
     return turn(state, command);
   }
 
+  // logic of u and d commands is derived from observation of
+  // movement of chandrayaan in 3-d space
   if (command === "u") {
     const newDirection = state.facing;
     const newFacing = oppositeMapping[state.direction];
@@ -57,6 +63,16 @@ const execute = (command, state) => {
 
     return { ...state, direction: newDirection, facing: newFacing };
   }
+};
+
+const execute = (commands, state) => {
+  // inital state
+  let result = state;
+  for (const cmd of commands.split("")) {
+    // sent the updated state to the next command
+    result = apply(cmd, result);
+  }
+  return result;
 };
 
 module.exports = { execute };
