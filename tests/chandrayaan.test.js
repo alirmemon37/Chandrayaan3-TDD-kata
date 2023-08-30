@@ -98,4 +98,21 @@ describe("Chandrayaan 3 should", () => {
       chandrayaan([0, 0, 0], "U", "S")
     );
   });
+
+  /*
+    NOTE: the answer does not require the final facing direction
+    it only requires the final position and direction
+    we maintain the facing direction for correctly determining the final position 
+  */
+  it("when executing multiple commands", () => {
+    const { position, direction } = execute(
+      "frubl",
+      chandrayaan([0, 0, 0], "N", "U")
+    );
+
+    expect({ position, direction }).toEqual({
+      position: [0, 1, -1],
+      direction: "N",
+    });
+  });
 });
