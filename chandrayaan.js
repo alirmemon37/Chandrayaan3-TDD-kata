@@ -66,13 +66,16 @@ const apply = (command, state) => {
 };
 
 const execute = (commands, state) => {
+  // commands is an array of commands e.g. ['f', 'b', 'l', 'r', 'u', 'd']
+
   // inital state
   let result = state;
-  for (const cmd of commands.split("")) {
+
+  for (const cmd of commands) {
     // sent the updated state to the next command
     result = apply(cmd, result);
   }
   return result;
-};
+}
 
 module.exports = { execute };
