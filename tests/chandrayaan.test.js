@@ -84,4 +84,18 @@ describe("Chandrayaan 3 should", () => {
       ).toEqual(chandrayaan([0, 0, 0], expectDirection, expectFacing));
     }
   );
+
+  it("when executing multiple commands", () => {
+    const facing = "U";
+    expect(execute("fff", chandrayaan([0, 0, 0], "N", facing))).toEqual(
+      chandrayaan([0, 3, 0], "N", facing)
+    );
+  });
+
+  it("when executing multiple commands", () => {
+    const facing = "U";
+    expect(execute("url", chandrayaan([0, 0, 0], "N", facing))).toEqual(
+      chandrayaan([0, 0, 0], "U", "S")
+    );
+  });
 });
